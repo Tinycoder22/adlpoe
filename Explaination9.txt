@@ -1,0 +1,156 @@
+Statement - Use JavaScript to dynamically update content on a webpage. Create a simple image slider using Query.
+
+Explaination -
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Slider</title>
+  <style>
+    /* Styles for the image slider */
+    #slider-container {
+      width: 600px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #slider-images {
+      width: 3000px;
+      display: flex;
+      transition: transform 0.5s;
+    }
+
+    .slide {
+      width: 600px;
+    }
+    .slider-button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+      }
+  
+      .slider-button:hover {
+        background-color: gray;
+      }
+      .button-container{
+            display: flex;
+            justify-content: center;
+      }
+  </style>
+</head>
+<body>
+  <div id="slider-container">
+    <div id="slider-images">
+      <img class="slide" src="image1.jpg" alt="Image 1">
+      <img class="slide" src="image2.jpg" alt="Image 2">
+      <img class="slide" src="image3.jpg" alt="Image 3">
+    </div>
+  </div>
+  <div class= "button-container">
+  <button id="prevBtn" class="slider-button">Previous</button>
+  <button id="nextBtn" class="slider-button">Next</button>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+### HTML Structure
+- `<!DOCTYPE html>`: Declares the document type as HTML5.
+- `<html lang="en">`: Specifies that the language of the document is English.
+- `<head>`: Contains metadata like the page title and linked stylesheets or scripts.
+- `<title>Image Slider</title>`: Sets the title of the webpage.
+- `<style>`: Contains the CSS styles for the webpage.
+  - `#slider-container`: Styles for the container holding the image slider.
+    - `width: 600px;`: Sets the width of the container to 600 pixels.
+    - `margin: 0 auto;`: Centers the container horizontally by setting left and right margins to 'auto'.
+    - `overflow: hidden;`: Hides content that overflows the container.
+    - `position: relative;`: Sets the container's position as relative for absolute positioning of child elements.
+  - `#slider-images`: Styles for the container holding the images.
+    - `width: 3000px;`: Total width accommodating all images (assuming each image is 600px wide).
+    - `display: flex;`: Uses flexbox for layout.
+    - `transition: transform 0.5s;`: Adds a smooth transition effect for image sliding animation.
+  - `.slide`: Styles for individual images in the slider.
+    - `width: 600px;`: Sets each image's width to 600 pixels.
+  - `.slider-button`: Styles for the slider navigation buttons.
+    - `padding`, `margin`, `font-size`, `border-radius`, `background-color`, `color`: Defines appearance properties for buttons.
+  - `.slider-button:hover`: Defines button appearance on hover, changing the background color.
+
+### Body Content
+- `<div id="slider-container">`: Container holding the image slider.
+  - `<div id="slider-images">`: Container holding the images for the slider.
+    - `<img class="slide" src="image1.jpg" alt="Image 1">`: Example image element with class `slide`.
+    - `<img class="slide" src="image2.jpg" alt="Image 2">`: Another image element with class `slide`.
+    - `<img class="slide" src="image3.jpg" alt="Image 3">`: Third image element with class `slide`.
+- `<div class="button-container">`: Container for slider navigation buttons.
+  - `<button id="prevBtn" class="slider-button">Previous</button>`: Button to navigate to the previous image.
+  - `<button id="nextBtn" class="slider-button">Next</button>`: Button to navigate to the next image.
+
+### Script Tags
+- `<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>`: Imports jQuery library.
+- `<script src="script.js"></script>`: Links an external JavaScript file (`script.js`) that may contain JavaScript/jQuery code to handle slider functionality (not provided in this snippet).
+
+The HTML defines an image slider with buttons for navigation, styled using CSS classes and IDs to control the layout and appearance.
+
+$(document).ready(function() {
+    let currentSlide = 0;
+    const slideCount = $('.slide').length;
+    const slideWidth = $('.slide').width();
+  
+    $('#nextBtn').click(function() {
+      if (currentSlide < slideCount - 1) {
+        currentSlide++;
+      } else {
+        currentSlide = 0;
+      }
+      updateSlider();
+    });
+  
+    $('#prevBtn').click(function() {
+      if (currentSlide > 0) {
+        currentSlide--;
+      } else {
+        currentSlide = slideCount - 1;
+      }
+      updateSlider();
+    });
+  
+    function updateSlider() {
+      const translateValue = -currentSlide * slideWidth;
+      $('#slider-images').css('transform', 'translateX(' + translateValue + 'px)');
+    }
+  });
+  
+  --
+  Absolutely! This jQuery script handles the functionality of the image slider defined in the HTML.
+
+Here's a breakdown of the code:
+
+### jQuery Document Ready Function
+- `$(document).ready(function() { ... });`: This code ensures that the JavaScript/jQuery inside it runs only after the document (DOM) is fully loaded and ready for manipulation.
+
+### Slider Functionality
+- `let currentSlide = 0;`: Initializes a variable `currentSlide` to keep track of the current image index.
+- `const slideCount = $('.slide').length;`: Calculates the total number of slides by counting elements with the class `.slide`.
+- `const slideWidth = $('.slide').width();`: Measures the width of a single slide element.
+
+### Next and Previous Button Click Events
+- `$('#nextBtn').click(function() { ... });`: Adds a click event listener to the "Next" button.
+  - Increments `currentSlide` if it's less than the total slide count (`slideCount`). If it reaches the last slide, it loops back to the first slide.
+  - Calls `updateSlider()` function to update the slider's position.
+
+- `$('#prevBtn').click(function() { ... });`: Adds a click event listener to the "Previous" button.
+  - Decrements `currentSlide` if it's greater than 0. If it's at the first slide, it moves to the last slide.
+  - Calls `updateSlider()` function to update the slider's position.
+
+### `updateSlider()` Function
+- `function updateSlider() { ... }`: This function adjusts the slider's position by changing the `transform` property of the `#slider-images` element.
+- `const translateValue = -currentSlide * slideWidth;`: Calculates the translation value based on the current slide index and slide width.
+- `$('#slider-images').css('transform', 'translateX(' + translateValue + 'px)');`: Updates the CSS `transform` property of `#slider-images` to move the images horizontally, creating a sliding effect.
+
+This script enables the "Next" and "Previous" buttons to navigate through the slides by adjusting the position of the slider container.

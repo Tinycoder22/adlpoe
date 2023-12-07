@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Slider</title>
+  <style>
+    /* Styles for the image slider */
+    #slider-container {
+      width: 600px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #slider-images {
+      width: 3000px;
+      display: flex;
+      transition: transform 0.5s;
+    }
+
+    .slide {
+      width: 600px;
+    }
+    .slider-button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+      }
+  
+      .slider-button:hover {
+        background-color: gray;
+      }
+      .button-container{
+            display: flex;
+            justify-content: center;
+      }
+  </style>
+</head>
+<body>
+  <div id="slider-container">
+    <div id="slider-images">
+      <img class="slide" src="image1.jpg" alt="Image 1">
+      <img class="slide" src="image2.jpg" alt="Image 2">
+      <img class="slide" src="image3.jpg" alt="Image 3">
+    </div>
+  </div>
+  <div class= "button-container">
+  <button id="prevBtn" class="slider-button">Previous</button>
+  <button id="nextBtn" class="slider-button">Next</button>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

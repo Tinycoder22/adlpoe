@@ -1,0 +1,112 @@
+Statement - Add client-side form validation to the registration web form. Validate fields such as email, password strength, and phone number
+
+Explaination -
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+  <div class="container">
+    <form id="registrationForm" class="form" onsubmit="return validateForm()">
+      <h2>Registration Form</h2>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+  
+      // Name validation (should not contain numbers)
+      const nameRegex = /^[A-Za-z\s]+$/;
+      if (!nameRegex.test(name)) {
+        alert('Name should not contain numbers');
+        return false;
+      }
+  
+      // Email validation using a regular expression
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return false;
+      }
+  
+      // Password strength validation (at least 8 characters including uppercase, lowercase, numbers, and special characters)
+      const passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!passwordStrength.test(password)) {
+        alert('Password should contain at least 8 characters including uppercase, lowercase, numbers, and special characters');
+        return false;
+      }
+  
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return false;
+      }
+  
+      // Phone number validation
+      const phoneRegex = /^\d{10}$/; // Assuming a 10-digit phone number
+      if (!phoneRegex.test(phone)) {
+        alert('Please enter a valid 10-digit phone number');
+        return false;
+      }
+  
+      // If all validations pass
+      return true;
+    }
+  </script>
+  
+</body>
+</html>
+
+- `<!DOCTYPE html>`: Declares the document type and version as HTML.
+- `<html lang="en">`: Specifies that the content language is English.
+- `<head>`: Contains metadata like character set, viewport settings, title, and links to external resources like stylesheets.
+- `<body>`: Contains the visible content of the page.
+- `<div class="container">`: A container to center-align the form in this case.
+- `<form id="registrationForm" class="form" onsubmit="return validateForm()">`: The form element with an ID and class. The `onsubmit` attribute triggers the `validateForm()` function when the form is submitted and returns the result (`true` for submission, `false` to prevent submission).
+- `<h2>Registration Form</h2>`: A heading for the form.
+- `<div class="form-group">...</div>`: Groups of form elements (label + input field).
+- `<label for="name">Name:</label>`: Describes the input field for the user.
+- `<input type="text" id="name" name="name" required>`: Text input field for the user's name, with an ID, name attribute, and `required` to make it mandatory.
+- `<button type="submit">Register</button>`: A button to submit the form.
+- `<script>...</script>`: JavaScript code containing the `validateForm()` function, which performs various validations when the form is submitted.
+
+The `validateForm()` function inside the `<script>` tag validates the form fields:
+
+- It retrieves values from input fields (`name`, `phone`, `email`, `password`, `confirmPassword`).
+- Validates the `name` field using a regular expression to ensure it contains only alphabetical characters and spaces.
+- Checks the `email` field with a regular expression to verify a basic email format.
+- Verifies password strength using a regular expression requiring specific criteria (uppercase, lowercase, numbers, and special characters).
+- Matches the `password` and `confirmPassword` fields to ensure they match.
+- Validates the `phone` field with a regular expression for a 10-digit number format.
+- Alerts users with error messages for any validation failures and prevents form submission if any validation fails by returning `false`.

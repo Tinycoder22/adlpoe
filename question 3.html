@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read and Write HTML with jQuery</title>
+    <!-- Include jQuery from a CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <style>
+        body{
+            background-color: azure;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+        }
+
+        button{
+            background-color: aquamarine;
+            color:black;
+            border:none;
+            border-radius: 4px;
+            height:25px;
+            width:300px;
+        }
+    </style>
+    <div id="content">
+        <h1>Welcome to DYPCET</h1>
+        <p>This is a simple example.</p>
+    </div>
+
+    <button id="readButton">Read Content</button>
+    <button id="writeButton">Write Content</button>
+
+    <script>
+        // Wait for the document to be ready
+        $(document).ready(function() {
+            // Read HTML content
+            $("#readButton").click(function() {
+                // Get the HTML content of the element with id "content"
+                var htmlContent = $("#content").html();
+                alert("HTML Content:\n" + htmlContent);
+            });
+
+            // Write HTML content
+            $("#writeButton").click(function() {
+                // Create new HTML content
+                var newContent = "<h2>New Content</h2><p>This is the updated content:-We are students of BTech CSE(AIML).</p>";
+                // Set the HTML content of the element with id "content" to the new content
+                $("#content").html(newContent);
+            });
+        });
+    </script>
+</body>
+</html>

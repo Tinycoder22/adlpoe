@@ -1,0 +1,88 @@
+Statement - Design a webpage and show data retrieval using Postman method
+
+Explaination -
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Retrieval using Postman</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .data-container {
+            border: 1px solid navy;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+```
+
+- `<!DOCTYPE html>`: Defines the document type and version as HTML5.
+- `<html lang="en">`: Specifies that the content language is English.
+- `<head>`: Contains metadata for the HTML document.
+    - `<meta charset="UTF-8">`: Sets the character encoding to UTF-8 (Unicode Transformation Format 8-bit) for handling various characters and symbols.
+    - `<meta name="viewport" content="width=device-width, initial-scale=1.0">`: Defines the viewport properties for responsive design on different devices.
+    - `<title>Data Retrieval using Postman</title>`: Sets the title of the HTML page displayed in the browser tab.
+    - `<style>`: Contains CSS styles for the HTML elements within this document.
+        - `body`: Sets the font family for the entire document to sans-serif (a generic font type).
+        - `.data-container`: Defines styles for a class named `data-container`. It sets a border, padding, and other styles for elements with this class.
+
+```html
+    <h1>Data Retrieval using Postman Method</h1>
+
+    <p>This webpage demonstrates how to retrieve data from an API using the Postman method.</p>
+
+    <button id="getDataBtn">Get Data</button>
+
+    <div class="data-container" id="dataDisplay">
+    </div>
+```
+
+- `<h1>Data Retrieval using Postman Method</h1>`: Displays a heading at the top of the page.
+- `<p>This webpage demonstrates how to retrieve data from an API using the Postman method.</p>`: Provides a brief explanation of what the webpage demonstrates.
+- `<button id="getDataBtn">Get Data</button>`: Creates a button element with the ID `getDataBtn`. This button will trigger the data retrieval process when clicked.
+- `<div class="data-container" id="dataDisplay"></div>`: Sets up a container (`<div>`) element with the class `data-container` and the ID `dataDisplay`. This will be used to display the retrieved data.
+
+```html
+    <script>
+        const getDataBtn = document.getElementById('getDataBtn');
+        const dataDisplay = document.getElementById('dataDisplay');
+
+        getDataBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('https://dummyjson.com/products/1');
+                const data = await response.json();
+
+                dataDisplay.innerHTML = `
+                    <h2>Post Data</h2>
+                    <p>ID: ${data.id}</p>
+                    <p>Title: ${data.title}</p>
+                    <p>Body: ${data.body}</p>
+                `;
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+                dataDisplay.innerHTML = '<p>Error retrieving data.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+- `<script>`: Introduces a JavaScript block where client-side scripting is used.
+    - `const getDataBtn = document.getElementById('getDataBtn');`: Retrieves the button element with the ID `getDataBtn` and stores it in the `getDataBtn` variable.
+    - `const dataDisplay = document.getElementById('dataDisplay');`: Retrieves the container (`<div>`) element with the ID `dataDisplay` and stores it in the `dataDisplay` variable.
+    - `getDataBtn.addEventListener('click', async () => { ... });`: Adds a click event listener to the `getDataBtn` button. When clicked, it triggers an asynchronous function.
+        - `try { ... } catch (error) { ... }`: Wraps the code in a try-catch block to handle any potential errors.
+            - `const response = await fetch('https://dummyjson.com/products/1');`: Uses the Fetch API to make an asynchronous GET request to retrieve JSON data from the specified URL.
+            - `const data = await response.json();`: Parses the JSON response received from the API and stores it in the `data` variable.
+            - `dataDisplay.innerHTML = `...`;`: Updates the `dataDisplay` container's HTML content to display the retrieved data in a structured format.
+            - `console.error('Error retrieving data:', error);` and `dataDisplay.innerHTML = '<p>Error retrieving data.</p>';`: Handles and displays an error message if there's a problem retrieving the data.
+
+This HTML file demonstrates how to create a simple webpage that, when the "Get Data" button is clicked, fetches data from a specific API endpoint using JavaScript's Fetch API and displays it on the page.

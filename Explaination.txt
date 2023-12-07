@@ -1,0 +1,80 @@
+Statement - Design a web page and demostrate NodeJS application.
+
+Explaination -
+
+### Step 1: Create a Simple Web Page
+
+Create an HTML file (`index.html`) with basic content:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Web Page</title>
+</head>
+<body>
+  <h1>Hello from Node.js!</h1>
+  <p>This is a simple web page served by a Node.js application.</p>
+</body>
+</html>
+```
+
+### Step 2: Create a Node.js Application
+
+1. Initialize a new Node.js project:
+   
+   ```bash
+   mkdir nodejs-demo
+   cd nodejs-demo
+   npm init -y
+   ```
+
+2. Install Express, a popular web framework for Node.js:
+   
+   ```bash
+   npm install express
+   ```
+
+3. Create a file named `server.js` for your Node.js application:
+
+   ```javascript
+   const express = require('express');
+   const path = require('path');
+   const app = express();
+   const port = 3000;
+
+   // Serve static files from the 'public' directory
+   app.use(express.static(path.join(__dirname, 'public')));
+
+   // Set up a route to serve the index.html file
+   app.get('/', (req, res) => {
+     res.sendFile(path.join(__dirname, 'index.html'));
+   });
+
+   // Start the server
+   app.listen(port, () => {
+     console.log(`Server is running on http://localhost:${port}`);
+   });
+   ```
+
+### Step 3: Create a `public` Folder
+
+Create a folder named `public` and move the `index.html` file into this folder:
+
+```bash
+mkdir public
+mv index.html public/
+```
+
+### Step 4: Run the Node.js Application
+
+Run your Node.js application:
+
+```bash
+node server.js
+```
+
+Your Node.js application will start, and you can access your simple web page by navigating to `http://localhost:3000` in your web browser.
+
+This setup uses Express to serve the static content of your web page (`index.html`). When someone accesses the root URL (`/`), it sends the HTML file, effectively displaying your web page. You can expand this application to handle more routes, serve additional files, or implement more complex server-side logic based on your needs.

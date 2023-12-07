@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Validation Form Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 5%;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #0074d9;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p#result {
+            text-align: center;
+            margin-top: 10px;
+        }
+        p#result.green {
+            color: green;
+        }
+        p#result.red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Validation Demo</h1>
+
+    <form id="validationForm">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Enter your email"><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter your phone number"><br>
+
+        <button type="button" onclick="validateForm()">Submit</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        function validateEmail(email) {
+            // Regular expression for a valid email
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePhone(phone) {
+            // Regular expression for a valid phone number (10 digits)
+            const phoneRegex = /^\d{10}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function validateForm() {
+            const emailInput = document.getElementById('email').value;
+            const phoneInput = document.getElementById('phone').value;
+
+            let isValid = true;
+            let validationMessage = '';
+
+            if (!validateEmail(emailInput)) {
+                isValid = false;
+                validationMessage += 'Invalid email address. ';
+            }
+
+            if (!validatePhone(phoneInput)) {
+                isValid = false;
+                validationMessage += 'Invalid phone number. ';
+            }
+
+            const resultElement = document.getElementById('result');
+
+            if (isValid) {
+                resultElement.innerHTML = 'Form submitted successfully!';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.innerHTML = 'Form submission failed. ' + validationMessage;
+                resultElement.style.color = 'red';
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+    

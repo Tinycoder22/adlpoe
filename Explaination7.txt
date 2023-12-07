@@ -1,0 +1,116 @@
+Statement - Implement a program for accepting and validating book catalog information.
+
+Explaination - 
+
+Absolutely! Let's break down the code line by line:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Catalog</title>
+  <style>
+    /* CSS styles go here */
+  </style>
+</head>
+<body>
+  <form id="bookForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title"><br><br>
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author"><br><br>
+
+    <label for="year">Year:</label>
+    <input type="number" id="year" name="year"><br><br>
+
+    <input type="submit" value="Add Book">
+
+    <div id="catalogOutput"></div>
+  </form>
+
+  <script>
+     document.getElementById('bookForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        // Fetching input values
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const year = document.getElementById('year').value;
+      
+        // Validation
+        if (title.trim() === '' || author.trim() === '' || year.trim() === '') {
+          alert('Please fill in all fields');
+          return;
+        }
+      
+        // Check if title contains only numbers
+        if (!isNaN(title)) {
+          alert('Book title cannot be a number');
+          return;
+        }
+      
+        // Check if author contains only numbers
+        if (!isNaN(author)) {
+          alert('Author cannot be a number');
+          return;
+        }
+      
+        // Year validation
+        const currentYear = new Date().getFullYear();
+        if (isNaN(year) || year < 0 || year > currentYear) {
+          alert('Please enter a valid year');
+          return;
+        }
+      
+        // If all validations pass, you can process the data, add it to your catalog, or perform other actions
+        console.log('Book Title:', title);
+        console.log('Author:', author);
+        console.log('Year:', year);
+      
+
+        const catalogOutput = document.getElementById('catalogOutput');
+  
+        // Create a message with the book details
+        const message = `
+          <p>New Book Added:</p>
+          <p>Title: ${title}</p>
+          <p>Author: ${author}</p>
+          <p>Year: ${year}</p>
+        `;
+
+        // Append the message to the catalogOutput div
+        catalogOutput.innerHTML = message;
+
+        // Reset the form
+        document.getElementById('bookForm').reset();
+        
+      });
+  </script>
+</body>
+</html>
+```
+
+- `<!DOCTYPE html>`: This declaration specifies the document type and version of HTML being used.
+- `<html lang="en">`: Defines the document as HTML and sets the language attribute to English.
+- `<head>`: Contains metadata, such as the character set and the page title.
+- `<meta charset="UTF-8">`: Declares the character encoding of the document to be UTF-8, which supports a wide range of characters.
+- `<title>Book Catalog</title>`: Sets the title of the webpage to "Book Catalog".
+- `<style>`: This is where CSS styles would be placed for styling the webpage, but it's empty in this example.
+- `<body>`: Contains the visible content of the webpage.
+- `<form id="bookForm">`: Creates a form element with the ID "bookForm".
+  - `<label>`: Labels for the form inputs.
+  - `<input>`: Text and number input fields for the book's title, author, and year.
+  - `<input type="submit">`: A submit button to add the book to the catalog.
+  - `<div id="catalogOutput"></div>`: An empty `<div>` element with the ID "catalogOutput" where catalog details will be displayed.
+
+- `<script>`: This is the start of the JavaScript section.
+  - `document.getElementById('bookForm').addEventListener('submit', function(event) { ... });`: Attaches an event listener to the form with the ID "bookForm" for the 'submit' event. The function inside the event listener handles form submission.
+  - Inside this function:
+    - `event.preventDefault();`: Prevents the default form submission behavior.
+    - Variables are created to store the values of the book title, author, and year from the form.
+    - Validation checks are performed to ensure that all fields are filled, the title and author are not only numbers, and the year is a valid number within a reasonable range.
+    - If the validations pass, a message containing the book details is constructed using a template literal.
+    - The message is appended to the empty `<div>` element with the ID "catalogOutput".
+    - Finally, the form is reset using `document.getElementById('bookForm').reset();`.
